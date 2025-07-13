@@ -8,12 +8,21 @@ import {
   Chip,
   Paper,
 } from '@mui/material';
+import type { Metadata } from 'next';
 
-export default async function PropertyDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  return {
+    title: `Properti ${params.id}`,
+  };
+}
+
+export default async function PropertyDetailPage({ params }: PageProps) {
   const res = await fetch(`https://687134f07ca4d06b34b9b681.mockapi.io/properties/${params.id}`, {
     cache: 'no-store',
   });
