@@ -1,4 +1,5 @@
 // app/detail/[id]/page.tsx
+
 import { notFound } from 'next/navigation';
 import { FaBed, FaBath, FaRulerCombined } from 'react-icons/fa';
 import {
@@ -10,11 +11,13 @@ import {
   Paper,
 } from '@mui/material';
 
-type Props = {
-  params: { id: string };
-};
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
 
-export default async function PropertyDetailPage({ params }: Props) {
+export default async function PropertyDetailPage({ params }: PageProps) {
   const res = await fetch(`https://687134f07ca4d06b34b9b681.mockapi.io/properties/${params.id}`, {
     cache: 'no-store',
   });
