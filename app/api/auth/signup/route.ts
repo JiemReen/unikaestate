@@ -3,15 +3,20 @@ import bcrypt from 'bcryptjs';
 import db from '@/lib/db';
 import { UserRole } from '@/types/roles';
 
-export async function POST(req: NextRequest) {
-  const { email, password, role = UserRole.CUSTOMER } = await req.json();
+interface SignupBody {
+  email: string;
+  password: string;
+  role?: UserRole;
+}
 
-  // ✅ Validate email and password
+export async function POST(req: NextRequest) {
+  const body: SignupBody = await req.json();
+  const { email, password, role = UserRole.CUSTOMER } = body;
+
   if (!email || !password) {
     return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
   }
 
-  // ✅ Validate role against enum
   if (!Object.values(UserRole).includes(role)) {
     return NextResponse.json({ error: 'Invalid role' }, { status: 400 });
   }
@@ -25,7 +30,8 @@ export async function POST(req: NextRequest) {
     );
 
     return NextResponse.json({ message: 'Signup successful' }, { status: 201 });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err) {
+    const error = err as Error;
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

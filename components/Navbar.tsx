@@ -51,20 +51,13 @@ export default function Navbar() {
       ];
 
   const navLinks = [...baseLinks, ...authLinks];
-  const mainNavPaths = new Set([
-    '/dijual',
-    '/disewa',
-    '/faq',
-    '/contact',
-    '/admin',
-  ]);
 
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
   };
 
   const handleClick = async (
-    e: React.MouseEvent<any, MouseEvent>,
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     label: string,
     path: string
   ) => {
@@ -77,7 +70,6 @@ export default function Navbar() {
       router.push(path);
     }
   };
-
 
   const drawerContent = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
@@ -116,26 +108,27 @@ export default function Navbar() {
           </>
         ) : (
           <Box sx={{ display: 'flex', gap: 2 }}>
-{navLinks.map((link) => {
-  return (
-    <Link key={link.path} href={link.path} passHref>
-      <Button
-        onClick={(e) => handleClick(e, link.label, link.path)}
-        variant="text"
-        sx={{
-          color: 'white', // Default color
-          bgcolor: pathname === link.path ? 'primary.dark' : 'transparent', // Active background
-          transition: 'all 0.2s',
-          '&:hover': {
-            bgcolor: pathname === link.path ? 'primary.dark' : 'rgba(255,255,255,0.1)',
-          },
-        }}
-      >
-        {link.label}
-      </Button>
-    </Link>
-  );
-})}
+            {navLinks.map((link) => (
+              <Link key={link.path} href={link.path} passHref>
+                <Button
+                  onClick={(e) => handleClick(e, link.label, link.path)}
+                  variant="text"
+                  sx={{
+                    color: 'white',
+                    bgcolor: pathname === link.path ? 'primary.dark' : 'transparent',
+                    transition: 'all 0.2s',
+                    '&:hover': {
+                      bgcolor:
+                        pathname === link.path
+                          ? 'primary.dark'
+                          : 'rgba(255,255,255,0.1)',
+                    },
+                  }}
+                >
+                  {link.label}
+                </Button>
+              </Link>
+            ))}
           </Box>
         )}
       </Toolbar>

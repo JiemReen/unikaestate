@@ -19,7 +19,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -40,8 +40,9 @@ export default function LoginPage() {
 
       // Redirect ke halaman utama
       router.push('/');
-    } catch (err: any) {
-      setErrorMsg(err.message || 'Terjadi kesalahan');
+    } catch (err) {
+      const error = err as Error;
+      setErrorMsg(error.message || 'Terjadi kesalahan');
     }
   };
 
