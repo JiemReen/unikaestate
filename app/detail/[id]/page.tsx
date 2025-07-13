@@ -9,26 +9,18 @@ import {
   Paper,
 } from '@mui/material';
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
-
-async function getProperty(id: string) {
-  const res = await fetch(`https://687134f07ca4d06b34b9b681.mockapi.io/properties/${id}`, {
+export default async function PropertyDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const res = await fetch(`https://687134f07ca4d06b34b9b681.mockapi.io/properties/${params.id}`, {
     cache: 'no-store',
   });
 
-  if (!res.ok) return null;
+  if (!res.ok) return notFound();
 
-  return res.json();
-}
-
-export default async function PropertyDetailPage({ params }: PageProps) {
-  const property = await getProperty(params.id);
-
-  if (!property) return notFound();
+  const property = await res.json();
 
   return (
     <Box sx={{ my: 4 }}>
