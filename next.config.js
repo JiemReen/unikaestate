@@ -1,11 +1,11 @@
-// next.config.js
+// next.config.ts
 const nextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true, // ⛔️ Nonaktifkan ESLint saat build production (fix Vercel)
+  },
   images: {
     domains: ['images.unsplash.com'],
   },
-  eslint: {
-    ignoreDuringBuilds: true, 
-  },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
