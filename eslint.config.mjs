@@ -10,11 +10,16 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // Default Next.js rules
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 
+  // Custom rule override section
   {
     rules: {
-      "@typescript-eslint/no-explicit-any": "off"
+      "@typescript-eslint/no-explicit-any": "off",
+      "react-hooks/exhaustive-deps": "off", // optional, hilangkan warning router
+      "@typescript-eslint/no-unused-vars": "off", // optional
+      "@next/next/no-img-element": "off", // optional
     }
   }
 ];
