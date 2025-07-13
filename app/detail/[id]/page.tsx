@@ -1,5 +1,3 @@
-// app/detail/[id]/page.tsx
-
 import { notFound } from 'next/navigation';
 import { FaBed, FaBath, FaRulerCombined } from 'react-icons/fa';
 import {
@@ -11,20 +9,26 @@ import {
   Paper,
 } from '@mui/material';
 
-interface PageProps {
+type PageProps = {
   params: {
     id: string;
   };
-}
+};
 
-export default async function PropertyDetailPage({ params }: PageProps) {
-  const res = await fetch(`https://687134f07ca4d06b34b9b681.mockapi.io/properties/${params.id}`, {
+async function getProperty(id: string) {
+  const res = await fetch(`https://687134f07ca4d06b34b9b681.mockapi.io/properties/${id}`, {
     cache: 'no-store',
   });
 
-  if (!res.ok) return notFound();
+  if (!res.ok) return null;
 
-  const property = await res.json();
+  return res.json();
+}
+
+export default async function PropertyDetailPage({ params }: PageProps) {
+  const property = await getProperty(params.id);
+
+  if (!property) return notFound();
 
   return (
     <Box sx={{ my: 4 }}>
