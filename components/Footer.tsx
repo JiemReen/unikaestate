@@ -1,4 +1,5 @@
 'use client';
+
 import {
   Box,
   Typography,
@@ -6,7 +7,6 @@ import {
   Button,
   IconButton,
 } from '@mui/material';
-import Grid from '@mui/material/Grid';
 import Link from 'next/link';
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
 
@@ -50,7 +50,6 @@ const footerSections = [
   },
 ];
 
-
 const socialLinks = [
   { icon: <FaLinkedinIn />, label: 'LinkedIn' },
   { icon: <FaFacebookF />, label: 'Facebook' },
@@ -70,20 +69,22 @@ export default function Footer() {
       }}
     >
       {/* Konten utama footer */}
-      <Grid
-        container
-        spacing={4}
-        justifyContent="center"
-        alignItems="flex-start"
-        flexWrap="wrap"
+      <Box
+        display="grid"
+        gridTemplateColumns={{
+          xs: '1fr',
+          sm: '1fr 1fr',
+          md: 'repeat(4, 1fr)',
+        }}
+        gap={4}
       >
         {/* Kolom 1 */}
-        <Grid item xs={12} sm={6} md={3}>
+        <Box>
           <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
             Real Estate
           </Typography>
           <Typography variant="body2" mt={2}>
-            platform pencarian properti terlengkap untuk membeli, menyewa,
+            Platform pencarian properti terlengkap untuk membeli, menyewa,
             atau menjual rumah dan apartemen di Indonesia.
           </Typography>
 
@@ -96,7 +97,6 @@ export default function Footer() {
             display="flex"
             flexDirection={{ xs: 'column', sm: 'row' }}
             flexWrap="wrap"
-            justifyContent="flex-start"
             mt={1}
             gap={1}
           >
@@ -125,32 +125,31 @@ export default function Footer() {
               Subscribe
             </Button>
           </Box>
-        </Grid>
+        </Box>
 
-        {/* Kolom 2, 3, 4 (data-driven) */}
+        {/* Kolom 2 - 5 */}
         {footerSections.map((section, idx) => (
-          <Grid item xs={6} sm={4} md={3} key={idx}>
+          <Box key={idx}>
             {section.title && (
               <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
                 {section.title}
               </Typography>
             )}
             {section.links.map((item) => (
-              <Link href="#" key={item} passHref style={{textDecoration: 'none', color: 'white'}}>
-              <Typography
-                variant="body2"
-                sx={{ mb: 0.5 }}
+              <Link
+                href="#"
+                key={item}
+                passHref
+                style={{ textDecoration: 'none', color: 'white' }}
               >
-                {item}
-              </Typography>
+                <Typography variant="body2" sx={{ mb: 0.5 }}>
+                  {item}
+                </Typography>
               </Link>
             ))}
-          </Grid>
+          </Box>
         ))}
-
-
-
-      </Grid>
+      </Box>
 
       {/* Footer bawah */}
       <Box

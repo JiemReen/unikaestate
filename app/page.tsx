@@ -9,7 +9,6 @@ import {
   useTheme,
   CircularProgress,
 } from '@mui/material';
-import Grid from '@mui/material/Grid';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -36,7 +35,7 @@ export default function HomePage() {
   const theme = useTheme();
 
   useEffect(() => {
-    fetch('https://687134f07ca4d06b34b9b681.mockapi.io/properties')
+    fetch('https://6873e6cac75558e2735597fd.mockapi.io/properties')
       .then((res) => res.json())
       .then((data) => {
         const sorted = [...data].reverse();
@@ -185,13 +184,21 @@ export default function HomePage() {
               <CircularProgress color="primary" />
             </Box>
           ) : (
-            <Grid container spacing={3}>
+            <Box
+              display="grid"
+              gridTemplateColumns={{
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(3, 1fr)',
+              }}
+              gap={3}
+            >
               {properties.map((item) => (
-                <Grid item xs={12} sm={6} md={4} key={item.id} component="div">
+                <Box key={item.id}>
                   <PropertyCard data={item} />
-                </Grid>
+                </Box>
               ))}
-            </Grid>
+            </Box>
           )}
         </Box>
       </Box>
