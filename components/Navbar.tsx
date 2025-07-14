@@ -57,14 +57,15 @@ export default function Navbar() {
   };
 
   const handleClick = async (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    e: React.MouseEvent<HTMLElement>, // ✅ Generalize to HTMLElement
     label: string,
     path: string
   ) => {
+    e.preventDefault();
+
     if (label === 'Logout') {
-      e.preventDefault();
       await fetch('/api/auth/logout', { method: 'POST' });
-      logout(); // Hapus dari AuthContext
+      logout(); // clear session
       router.push('/');
     } else {
       router.push(path);
