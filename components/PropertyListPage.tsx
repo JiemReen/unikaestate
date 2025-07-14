@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import PropertyCard from '@/components/PropertyCard';
-import { Container, Grid, Typography, CircularProgress, Box } from '@mui/material';
+import { Container, Typography, CircularProgress, Box } from '@mui/material';
 import type { Property } from '@/types/Property';
 
 type Props = {
@@ -38,13 +38,20 @@ export default function PropertyListPage({ pageTitle, propertyType }: Props) {
           <CircularProgress />
         </Box>
       ) : (
-        <Grid container spacing={4}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 3,
+            justifyContent: 'center',
+          }}
+        >
           {properties.map((item) => (
-            <Grid item xs={12} sm={6} md={4} key={item.id}>
+            <Box key={item.id} sx={{ width: { xs: '100%', sm: '45%', md: '30%' } }}>
               <PropertyCard data={item} />
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
       )}
     </Container>
   );
